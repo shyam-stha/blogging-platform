@@ -1,0 +1,53 @@
+{
+    "name": "blogging-platform",
+    "version": "1.0.0",
+    "description": "Blogging platform where users can add blog, comment on blog.",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
+        "start": "node dist/server.js",
+        "build": "npx tsc",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "4.14.1",
+        "@types/passport-jwt": "^3.0.8",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "express-validator": "^7.0.1",
+        "helmet": "^7.0.0",
+        "http-errors": "^2.0.0",
+        "http-status": "^1.6.2",
+        "jsonwebtoken": "^9.0.0",
+        "morgan": "^1.10.0",
+        "passport": "^0.6.0",
+        "passport-jwt": "^4.0.1",
+        "passport-local": "^1.0.0",
+        "pg": "^8.11.0",
+        "prisma": "^4.14.1",
+        "prisma-client": "^0.0.0",
+        "winston": "^3.9.0"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
+        "@types/cors": "^2.8.13",
+        "@types/express": "^4.17.17",
+        "@types/express-session": "^1.17.7",
+        "@types/http-errors": "^2.0.1",
+        "@types/jsonwebtoken": "^9.0.2",
+        "@types/node": "^20.2.5",
+        "@types/passport": "^1.0.12",
+        "@types/passport-local": "^1.0.35",
+        "concurrently": "^8.0.1",
+        "nodemon": "^2.0.22",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.4"
+    }
+}
