@@ -2,7 +2,7 @@ import { Strategy as JwtStrategy } from 'passport-jwt';
 import { ExtractJwt } from 'passport-jwt';
 import dotenv from 'dotenv';
 import passport from 'passport';
-import userService from '../services/user.service.js';
+import userService from '../../services/user.service.js';
 dotenv.config();
 
 let options: any = {};

@@ -1,9 +1,13 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 
-const errorHandler: ErrorRequestHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
     const { name, message, stack } = err;
 
-    res.status(500).send(message || 'Internal server error');
+    if (err.statusCode < 500 && err.statusCode > 400) {
+        return res.status(err.statusCode).send(message);
+    }
+
+    return res.status(500).send('Internal server error');
 };
 
 export default errorHandler;

@@ -1,10 +1,10 @@
-import express from 'express';
+import express, { Router } from 'express';
 import authController from '../controllers/auth.controller.js';
-import localStrategy from '../config/local.strategy.js';
+import { localStrategy } from '../middlewares/strategy/index.js';
 
-const router = express.Router();
+const router:Router = express.Router();
 
-router.post('/register', authController.registerUser);
-router.post('/login', localStrategy.authenticate('local', { session: false }), authController.userLogin);
+router.post('/register', authController.register);
+router.post('/login', localStrategy.authenticate('local', { session: false }), authController.login);
 
 export default router;

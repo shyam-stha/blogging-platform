@@ -1,11 +1,10 @@
 import express, { Application } from 'express';
-import router from './routes/index.routes.js';
+import router from './routes/index.js';
 import prisma from 'prisma';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import session from 'express-session';
 import errorHandler from './middlewares/error.middleware.js';
-import passport from './config/local.strategy.js';
+import passport from 'passport';
 dotenv.config();
 
 const app: Application = express();

@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import userService from '../services/user.service.js';
+import userService from '../../services/user.service.js';
 
 passport.use(
     new LocalStrategy({ usernameField: 'email' }, async (email: string, password: string, done: any) => {

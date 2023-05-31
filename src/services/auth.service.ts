@@ -1,36 +1,33 @@
 import User from '../utils/interfaces/user.js';
-import createError from 'http-errors';
-import { PrismaClient } from '@prisma/client';
+import createHttpError from 'http-errors';
 import httpStatus from 'http-status';
 import bcryptService from './bcrypt.service.js';
 import userService from './user.service.js';
 import jwt from 'jsonwebtoken';
+import prisma from '../config/prisma.config.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const prisma = new PrismaClient({
-    log: ['query', 'info', 'warn', 'error']
-});
-
-const createUser = async (reqBody: User) => {
+const create = async (reqBody: User) => {
     try {
         const { name, email, password } = reqBody;
         const isExistingUser = await userService.findUserByEmail(email);
         if (isExistingUser) {
-            throw createError(httpStatus.FOUND, 'User with this mail already exits');
+            throw createHttpError(httpStatus.FOUND, 'User with this email already exits');
         } else {
             const hashPassword = await bcryptService.createPasswordHash(password);
             const user = await prisma.user.create({ data: { name, email, password: hashPassword } });
             return user;
         }
     } catch (error: any) {
-        throw createError(httpStatus.BAD_REQUEST, 'Unable to create user');
+        throw createHttpError(error.statusCode, error.message);
     }
 };
 
 const login = async (reqBody: { email: string; password: string }): Promise<any> => {
     try {
         const { password, ...rest } = await userService.findUserByEmail(reqBody.email);
+        if (!rest) throw createHttpError(httpStatus.NOT_FOUND, 'user with this credential not fount');
 
         const token = await generateToken(rest);
 
@@ -39,8 +36,8 @@ const login = async (reqBody: { email: string; password: string }): Promise<any>
             email: rest.email,
             token
         };
-    } catch (error) {
-        throw createError(httpStatus.BAD_REQUEST, 'Unable user login');
+    } catch (error: any) {
+        throw createHttpError(error.satatusCode, error.message);
     }
 };
 
@@ -56,4 +53,4 @@ const generateToken = async (user: any): Promise<string> => {
     return jwt.sign(payload, secret, { expiresIn: '4days' });
 };
 
-export default { createUser, login };
+export default { create, login };
