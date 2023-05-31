@@ -14,7 +14,10 @@ const create = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const findPosts = asyncHandler(async (req: Request, res: Response) => {
-    const { posts, count } = await postService.findAllPost(req.query);
+const { error, value } = postValidation.postQuery.query.validate(req.query);
+if (error) throw createHttpError(httpStatus.BAD_REQUEST, error.message);
+
+    const { posts, count } = await postService.findAllPost(value);
     res.status(httpStatus.OK).json({ message: 'posts fetched successfully', data: posts, totalCount: count });
 });
 

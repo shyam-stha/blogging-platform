@@ -32,6 +32,7 @@ const findAllPost = async (query: any) => {
     try {
         let { page, title, category, author, startDate, endDate } = query;
         page = page || 1;
+        
 
         const where = {
             OR: [{ title: { contains: title || '' } }, { categories: { some: { title: { contains: category || '' } } } }],

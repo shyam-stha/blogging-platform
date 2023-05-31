@@ -11,12 +11,12 @@ const createPost = {
 const postQuery = {
     query: Joi.object().keys({
         page: Joi.number().optional(),
-        title: Joi.number().optional(),
-        category: Joi.number().optional(),
-        author: Joi.number().optional(),
-        startDate: Joi.number().optional(),
-        endDate: Joi.number().optional()
+        title: Joi.string().optional(),
+        category: Joi.string().optional(),
+        author: Joi.string().optional(),
+        startDate: Joi.date().optional(),
+        endDate: Joi.date().optional()
     })
 };
 
-export default { createPost };
+export default { createPost,postQuery };
