@@ -6,7 +6,7 @@ import prisma from '../config/prisma.config.js';
 const create = async (reqBody: Comment, user: any) => {
     try {
         const { content, postId } = reqBody;
-        
+
         const comment = await prisma.comment.create({
             data: { content: content, post: { connect: { id: postId } }, author: { connect: { id: user.id } } }
         });

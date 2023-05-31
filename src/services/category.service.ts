@@ -12,8 +12,8 @@ const createCategory = async (reqBody: Category) => {
             update: { title: title }
         });
         return category;
-    } catch (error) {
-        throw createHttpError(httpStatus.BAD_REQUEST, 'unable to create category');
+    } catch (error: any) {
+        throw createHttpError(error.statusCode, error.message);
     }
 };
 const findCategoryById = async (category: string) => {
@@ -28,24 +28,24 @@ const findAllCategory = async () => {
     try {
         const categories = await prisma.category.findMany({ include: { posts: true } });
         return categories;
-    } catch (error) {
-        throw createHttpError(httpStatus.BAD_REQUEST, 'unable to fetch category');
+    } catch (error: any) {
+        throw createHttpError(error.statusCode, error.message);
     }
 };
 const updateCategory = async (category: string, reqBody: Partial<Category>) => {
     try {
         const response = await prisma.category.update({ data: { ...reqBody }, where: { title: category } });
         return response;
-    } catch (error) {
-        throw createHttpError(httpStatus.BAD_REQUEST, 'unable to update category');
+    } catch (error: any) {
+        throw createHttpError(error.statusCode, error.message);
     }
 };
 const deleteCategory = async (category: string) => {
     try {
         const response = await prisma.category.delete({ where: { title: category } });
         return response;
-    } catch (error) {
-        throw createHttpError(httpStatus.BAD_REQUEST, 'unable to delete category');
+    } catch (error: any) {
+        throw createHttpError(error.statusCode, error.message);
     }
 };
 

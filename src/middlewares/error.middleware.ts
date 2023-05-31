@@ -6,6 +6,7 @@ const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: Response
     if (err.statusCode < 500 && err.statusCode > 300) {
         return res.status(err.statusCode).send(message);
     }
+    
 
     return res.status(500).send('Internal server error');
 };
