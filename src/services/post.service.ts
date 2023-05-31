@@ -30,15 +30,11 @@ const create = async (reqBody: any, user: any) => {
 
 const findAllPost = async (query: any) => {
     try {
-        let { page, title, content, category, author, startDate, endDate } = query;
+        let { page, title, category, author, startDate, endDate } = query;
         page = page || 1;
 
         const where = {
-            OR: [
-                { title: { contains: title || '' } },
-                { content: { contains: content || '' } },
-                { categories: { some: { title: { contains: title || '' } } } }
-            ],
+            OR: [{ title: { contains: title || '' } }, { categories: { some: { title: { contains: category || '' } } } }],
             categories: { some: { title: { contains: category || '' } } },
             author: { name: { contains: author || '' } },
             createdAt: {
