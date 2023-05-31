@@ -17,7 +17,7 @@ const create = async (reqBody: Comment, user: any) => {
 };
 const updateComment = async (id: string, reqBody: Partial<Comment>, user: any) => {
     try {
-        const response = await prisma.comment.update({ data: { ...reqBody }, where: { id: id, authorId: user.id } });
+        const response = await prisma.comment.update({ data: { ...reqBody }, where: { id: id } });
         return response;
     } catch (error: any) {
         throw createHttpError(error.statusCode, error.message);
@@ -25,7 +25,7 @@ const updateComment = async (id: string, reqBody: Partial<Comment>, user: any) =
 };
 const deleteComment = async (id: string, user: any) => {
     try {
-        const response = await prisma.comment.delete({ where: { id: id, authorId: user.id } });
+        const response = await prisma.comment.delete({ where: { id: id } });
         return response;
     } catch (error: any) {
         throw createHttpError(error.statusCode, error.message);
